@@ -22,14 +22,18 @@ Este projeto é um sistema de e-commerce simples com foco em:
 ## 📁 Estrutura do Projeto
 ecommerce-node/
 ├── backend/
-│ ├── server.js # Servidor HTTP e lógica de API
-│ └── produto.js # Classe Produto com validações
+│   ├── server.js         
+│   ├── produto.js       
+│   ├── database.js       
+│   └── logs.txt          
+│
 ├── frontend/
-│ ├── index.html # Interface do usuário
-│ ├── style.css # Estilo da página
-│ └── script.js # Conexão com API e interações
-├── logs.txt # Registro de erros e exceções
-└── README.md # Este arquivo
+│   ├── index.html       
+│   ├── style.css         
+│   └── script.js         
+│
+├── README.md            
+└── .gitignore            
 
 ---
 
