@@ -19,24 +19,6 @@ Este projeto é um sistema de e-commerce simples com foco em:
 
 ---
 
-## 📁 Estrutura do Projeto
-ecommerce-node/
-├── backend/
-│   ├── server.js         
-│   ├── produto.js       
-│   ├── database.js       
-│   └── logs.txt          
-│
-├── frontend/
-│   ├── index.html       
-│   ├── style.css         
-│   └── script.js         
-│
-├── README.md            
-└── .gitignore            
-
----
-
 👨‍💻 Desenvolvedor
 
     Nome: Márcio Gustavo da Silva
