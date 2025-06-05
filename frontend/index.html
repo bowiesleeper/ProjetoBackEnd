@@ -42,7 +42,7 @@
   <section id="secCarrinho" class="hidden">
     <form id="formCarrinho">
       <input type="text" id="usuarioId" placeholder="ID do Usuário" required />
-      <textarea id="itensCarrinho" placeholder='Itens (JSON): [{"produtoId": "id", "quantidade": 1}, ...]' rows="5" required></textarea>
+      <textarea id="itensCarrinho" placeholder='' rows="5" required></textarea>
       <button type="submit">Criar Carrinho</button>
     </form>
     <div id="carrinhos"></div>
@@ -79,7 +79,7 @@
       carregarCarrinhos();
     };
 
-    // Produtos
+    
     function carregarProdutos() {
       fetch('/api/produtos')
         .then(res => res.json())
@@ -115,7 +115,7 @@
       .catch(console.error);
     });
 
-    // Usuários
+    
     function carregarUsuarios() {
       fetch('/api/usuarios')
         .then(res => res.json())
@@ -151,7 +151,7 @@
       .catch(console.error);
     });
 
-    // Carrinhos
+    
     function carregarCarrinhos() {
       fetch('/api/carrinhos')
         .then(res => res.json())
@@ -163,7 +163,7 @@
             return;
           }
 
-          // Mostrar apenas produtos que tem mesmo nome e preços diferentes
+          
           fetch('/api/carrinhos/diferentes-por-nome')
             .then(res => res.json())
             .then(lista => {
@@ -210,7 +210,7 @@
       .catch(console.error);
     });
 
-    // Inicializa com produtos visíveis
+ 
     btnProdutos.click();
   </script>
 </body>

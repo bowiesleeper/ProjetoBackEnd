@@ -1,4 +1,4 @@
-// Backend (Node.js)
+
 
 const http = require('http');
 const fs = require('fs');
@@ -27,7 +27,7 @@ const server = http.createServer(async (req, res) => {
     const pathname = parsedUrl.pathname;
     const method = req.method;
 
-    // Produtos GET
+
     if (pathname === '/api/produtos' && method === 'GET') {
       try {
         const produtosCollection = await connect('produtos');
@@ -42,7 +42,7 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
-    // Produtos POST
+    
     if (pathname === '/api/produtos' && method === 'POST') {
       let body = '';
       req.on('data', chunk => body += chunk);
@@ -68,7 +68,7 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
-    // Usuários GET
+    
     if (pathname === '/api/usuarios' && method === 'GET') {
       try {
         const usuariosCollection = await connect('usuarios');
@@ -83,7 +83,7 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
-    // Usuários POST
+   
     if (pathname === '/api/usuarios' && method === 'POST') {
       let body = '';
       req.on('data', chunk => body += chunk);
@@ -109,7 +109,7 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
-    // Carrinhos GET
+    
     if (pathname === '/api/carrinhos' && method === 'GET') {
       try {
         const carrinhosCollection = await connect('carrinhos');
@@ -124,7 +124,7 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
-    // Carrinhos POST
+    
     if (pathname === '/api/carrinho' && method === 'POST') {
       let body = '';
       req.on('data', chunk => body += chunk);
@@ -151,7 +151,7 @@ const server = http.createServer(async (req, res) => {
       return;
     }
 
-    // Frontend serve
+    
     let filePath = path.join(__dirname, '..', 'frontend', pathname === '/' ? 'index.html' : pathname);
     const extname = path.extname(filePath);
     const contentType = contentTypes[extname] || 'application/octet-stream';

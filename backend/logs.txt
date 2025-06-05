@@ -96,3 +96,7 @@
 [2025-06-04T23:35:09.192Z] Error: ENOENT: no such file or directory, open 'C:\Users\bowie\Documents\Projeto\ecommerce-node\frontend\api\usuarios'
 [2025-06-04T23:35:11.495Z] Error: ENOENT: no such file or directory, open 'C:\Users\bowie\Documents\Projeto\ecommerce-node\frontend\api\carrinhos'
 [2025-06-04T23:35:11.824Z] Error: ENOENT: no such file or directory, open 'C:\Users\bowie\Documents\Projeto\ecommerce-node\frontend\api\usuarios'
+[2025-06-05T00:32:37.427Z] Error: ENOENT: no such file or directory, open 'C:\Users\bowie\Documents\Projeto\ecommerce-node\frontend\favicon.ico'
+[2025-06-05T00:32:53.644Z] Error: ENOENT: no such file or directory, open 'C:\Users\bowie\Documents\Projeto\ecommerce-node\frontend\favicon.ico'
+[2025-06-05T00:33:13.527Z] Error: ENOENT: no such file or directory, open 'C:\Users\bowie\Documents\Projeto\ecommerce-node\frontend\favicon.ico'
+[2025-06-05T00:34:28.958Z] Error: ENOENT: no such file or directory, open 'C:\Users\bowie\Documents\Projeto\ecommerce-node\frontend\favicon.ico'
