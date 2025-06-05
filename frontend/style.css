@@ -1,0 +1,21 @@
+body {
+  font-family: Arial;
+  margin: 2em;
+  background: #f0f0f0;
+}
+input, button {
+  display: block;
+  margin: 0.5em 0;
+  padding: 0.5em;
+  width: 100%;
+}
+#produtos {
+  margin-top: 2em;
+}
+.card {
+  background: white;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-radius: 0.5em;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}

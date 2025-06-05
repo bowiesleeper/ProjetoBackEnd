@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Loja</title>
+  <style>
+    body { font-family: Arial; margin: 2em; background: #f0f0f0; }
+    input, button, textarea { display: block; margin: 0.5em 0; padding: 0.5em; width: 100%; }
+    #produtos, #usuarios, #carrinhos { margin-top: 2em; }
+    .card { background: white; padding: 1em; margin-bottom: 1em; border-radius: 0.5em; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    nav button { margin-right: 1em; padding: 0.5em 1em; cursor: pointer; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <h1>Loja de Produtos</h1>
+
+  <nav>
+    <button id="btnProdutos">Produtos</button>
+    <button id="btnUsuarios">Usuários</button>
+    <button id="btnCarrinho">Carrinho</button>
+  </nav>
+
+  <section id="secProdutos">
+    <form id="formProduto">
+      <input type="text" id="nomeProduto" placeholder="Nome do produto" required />
+      <input type="number" id="precoProduto" placeholder="Preço" step="0.01" required />
+      <button type="submit">Adicionar Produto</button>
+    </form>
+    <div id="produtos"></div>
+  </section>
+
+  <section id="secUsuarios" class="hidden">
+    <form id="formUsuario">
+      <input type="text" id="nomeUsuario" placeholder="Nome do usuário" required />
+      <input type="email" id="emailUsuario" placeholder="Email" required />
+      <button type="submit">Cadastrar Usuário</button>
+    </form>
+    <div id="usuarios"></div>
+  </section>
+
+  <section id="secCarrinho" class="hidden">
+    <form id="formCarrinho">
+      <input type="text" id="usuarioId" placeholder="ID do Usuário" required />
+      <textarea id="itensCarrinho" placeholder='Itens (JSON): [{"produtoId": "id", "quantidade": 1}, ...]' rows="5" required></textarea>
+      <button type="submit">Criar Carrinho</button>
+    </form>
+    <div id="carrinhos"></div>
+  </section>
+
+  <script>
+    const btnProdutos = document.getElementById('btnProdutos');
+    const btnUsuarios = document.getElementById('btnUsuarios');
+    const btnCarrinho = document.getElementById('btnCarrinho');
+
+    const secProdutos = document.getElementById('secProdutos');
+    const secUsuarios = document.getElementById('secUsuarios');
+    const secCarrinho = document.getElementById('secCarrinho');
+
+    function esconderSecoes() {
+      secProdutos.classList.add('hidden');
+      secUsuarios.classList.add('hidden');
+      secCarrinho.classList.add('hidden');
+    }
+
+    btnProdutos.onclick = () => {
+      esconderSecoes();
+      secProdutos.classList.remove('hidden');
+      carregarProdutos();
+    };
+    btnUsuarios.onclick = () => {
+      esconderSecoes();
+      secUsuarios.classList.remove('hidden');
+      carregarUsuarios();
+    };
+    btnCarrinho.onclick = () => {
+      esconderSecoes();
+      secCarrinho.classList.remove('hidden');
+      carregarCarrinhos();
+    };
+
+    // Produtos
+    function carregarProdutos() {
+      fetch('/api/produtos')
+        .then(res => res.json())
+        .then(produtos => {
+          const div = document.getElementById('produtos');
+          div.innerHTML = '';
+          produtos.forEach(p => {
+            div.innerHTML += `<div class="card"><p><strong>${p.nome}</strong> - R$ ${p.preco.toFixed(2)}</p><p>ID: ${p._id}</p></div>`;
+          });
+        })
+        .catch(console.error);
+    }
+
+    document.getElementById('formProduto').addEventListener('submit', e => {
+      e.preventDefault();
+      const nome = document.getElementById('nomeProduto').value.trim();
+      const preco = parseFloat(document.getElementById('precoProduto').value);
+      if (!nome || isNaN(preco)) return alert('Preencha os dados corretamente.');
+
+      fetch('/api/produtos', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, preco })
+      })
+      .then(res => {
+        if (res.ok) {
+          e.target.reset();
+          carregarProdutos();
+        } else {
+          return res.text().then(msg => alert(msg));
+        }
+      })
+      .catch(console.error);
+    });
+
+    // Usuários
+    function carregarUsuarios() {
+      fetch('/api/usuarios')
+        .then(res => res.json())
+        .then(usuarios => {
+          const div = document.getElementById('usuarios');
+          div.innerHTML = '';
+          usuarios.forEach(u => {
+            div.innerHTML += `<div class="card"><p><strong>${u.nome}</strong> - ${u.email}</p><p>ID: ${u._id}</p></div>`;
+          });
+        })
+        .catch(console.error);
+    }
+
+    document.getElementById('formUsuario').addEventListener('submit', e => {
+      e.preventDefault();
+      const nome = document.getElementById('nomeUsuario').value.trim();
+      const email = document.getElementById('emailUsuario').value.trim();
+      if (!nome || !email) return alert('Preencha os dados corretamente.');
+
+      fetch('/api/usuarios', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nome, email })
+      })
+      .then(res => {
+        if (res.ok) {
+          e.target.reset();
+          carregarUsuarios();
+        } else {
+          return res.text().then(msg => alert(msg));
+        }
+      })
+      .catch(console.error);
+    });
+
+    // Carrinhos
+    function carregarCarrinhos() {
+      fetch('/api/carrinhos')
+        .then(res => res.json())
+        .then(carrinhos => {
+          const div = document.getElementById('carrinhos');
+          div.innerHTML = '<h2>Carrinhos com produtos com mesmo nome e preços diferentes</h2>';
+          if (carrinhos.length === 0) {
+            div.innerHTML += '<p>Nenhum produto encontrado com preços diferentes para o mesmo nome.</p>';
+            return;
+          }
+
+          // Mostrar apenas produtos que tem mesmo nome e preços diferentes
+          fetch('/api/carrinhos/diferentes-por-nome')
+            .then(res => res.json())
+            .then(lista => {
+              if (lista.length === 0) {
+                div.innerHTML += '<p>Nenhum produto com preços diferentes por nome encontrado.</p>';
+                return;
+              }
+              lista.forEach(c => {
+                div.innerHTML += `<div class="card">
+                  <p><strong>Usuário ID:</strong> ${c.usuarioId}</p>
+                  <p><strong>Itens com nomes iguais e preços diferentes:</strong></p>
+                  <ul>${c.itens.map(i => `<li>${i.nome} - R$ ${i.preco.toFixed(2)} (Quantidade: ${i.quantidade})</li>`).join('')}</ul>
+                </div>`;
+              });
+            });
+        })
+        .catch(console.error);
+    }
+
+    document.getElementById('formCarrinho').addEventListener('submit', e => {
+      e.preventDefault();
+      const usuarioId = document.getElementById('usuarioId').value.trim();
+      let itens;
+      try {
+        itens = JSON.parse(document.getElementById('itensCarrinho').value);
+      } catch {
+        return alert('Itens inválidos: deve ser um JSON válido');
+      }
+      if (!usuarioId || !Array.isArray(itens)) return alert('Preencha os dados corretamente.');
+
+      fetch('/api/carrinho', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ usuarioId, itens })
+      })
+      .then(res => {
+        if (res.ok) {
+          e.target.reset();
+          carregarCarrinhos();
+        } else {
+          return res.text().then(msg => alert(msg));
+        }
+      })
+      .catch(console.error);
+    });
+
+    // Inicializa com produtos visíveis
+    btnProdutos.click();
+  </script>
+</body>
+</html>
