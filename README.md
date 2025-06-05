@@ -32,7 +32,7 @@ ecommerce-node/
 │   │   ├── Carrinho.js         # Classe responsável pelo carrinho de compras
 │   │   ├── Produto.js          # Classe de produtos
 │   │   ├── Usuario.js          # Classe de usuários
-│   │   ├── database.js         # Conexão com o MongoDB Atlas
+│   │   ├── database.js         # Conexão com o MongoDB 
 │   │   ├── logger.js           # Manipulação de logs de erro
 │   │   └── logs.txt            # Arquivo de registro de logs
 │   └── server.js               # Servidor Node.js (HTTP)
