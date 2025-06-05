@@ -14,7 +14,7 @@ Este projeto é um sistema de e-commerce simples com foco em:
 - Node.js
 - MongoDB local
 - HTML5 + CSS3
-- JavaScript (puro)
+- JavaScript
 - Biblioteca MongoDB para Node.js (`mongodb`)
 
 ---
