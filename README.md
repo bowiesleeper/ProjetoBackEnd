@@ -77,7 +77,7 @@ ecommerce-node/
 ## 🛠 Tecnologias
 
 - Node.js (sem Express)
-- MongoDB Atlas
+- MongoDB
 - HTML, CSS e JavaScript (Vanilla)
 
 ---
